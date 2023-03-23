@@ -15,26 +15,34 @@
  */
 package dev.rpmhub;
 
+import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.eclipse.microprofile.rest.client.inject.RestClient;
+//TODO Injeção de dependência (o que estava sendo pedido no arquivo de códito) e ejetar um service (o que estava escrito na descrição da issue) são a mesma coisa?
 @Path("/servicea")
-public class ServiceA {
+public class ServiceA { 
+    
+//Instanciando o RestClient para o Service B via injeção de dependência
+@Inject
+@RestClient
 
-    // TODO
-    // Por meio de injeção de dependência,
-    // instancie o Rest Cliente para o serviço B
-
+ServiceRemotoB remotoB;
+    /**
+     * @param name
+     * @return nome da pessoa inserida no patch
+     */
     @GET
     @Path("/person/{name}")
     @Produces(MediaType.APPLICATION_JSON)
     public Person getPerson(@PathParam("name") String name){
-        // TODO
-        // Complete o método
-        return null;
+
+        // Completando o método
+        return remotoB.getPerson(name);
     }
 
 }
